@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  plan:
+  github-actions:
     runs-on: ubuntu-latest
     steps:
       - name: List Files
