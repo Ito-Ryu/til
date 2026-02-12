@@ -1,6 +1,6 @@
 # aqua
 ## 概要
-suzuki-shunsuke氏が開発した、Go言語で開発された、YAMLファイルでCLIツールのバージョンを宣言的に管理できるCLIツールマネージャー
+suzuki-shunsuke氏が開発した、Go言語で開発された、YAMLファイルでCLIツールのバージョンを宣言的に管理できるCLIバージョンマネージャー
 
 ## 参考資料
 * Web
