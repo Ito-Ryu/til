@@ -44,7 +44,7 @@ aqua init
 
 > [!Tip] 
 > 実行したいディレクトリで、`aqua` のディレクトリを作成し、そのディレクトリで実行してもいい。<br/>
->  他の名前では無理そう。
+> [設定ファイルの探索](https://zenn.dev/shunsuke_suzuki/books/aqua-handbook/viewer/tutorial#%E8%A8%AD%E5%AE%9A%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E6%8E%A2%E7%B4%A2)
 
 ### 3. CLI のパッケージをインストールする
 エディタで編集もできるが、コマンドが便利
