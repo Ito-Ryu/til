@@ -36,7 +36,8 @@ aqua init
 ```
 
 > [!Note]
-> ### コマンドを実行するディレクトリ選択方法 
+> __コマンドを実行するディレクトリ選択方法__
+> 
 > 現在の __ディレクトリ__ から __ルート ディレクトリ__ にかけて設定ファイルを探す。<br/>→ 実行しているディレクトリが優先され、`aqua.yaml` や `aqua/aqua.yaml` がなければ、一つずつ上のディレクトリを探索していく。<br/>
 > 基本は __リポジトリルート__ で実行でいい。<br/>
 > [Configuration file path](https://aquaproj.github.io/docs/tutorial/config-path)
@@ -54,8 +55,9 @@ aqua g -i <PACKAGE_NAME>@<VERSION>
 
 
 > [!Tip] 
-> ### ローカルで aqua を使って、version 管理したい時（MacOS）
-> #### ① 管理したいコマンドのパスを通す場合
+> __ローカルで aqua を使って、version 管理したい時（MacOS）__
+> 
+> ① 管理したいコマンドのパスを通す場合
 > 1. 固定するものを探す
 > ``` shell
 > which terraform
@@ -64,16 +66,19 @@ aqua g -i <PACKAGE_NAME>@<VERSION>
 >   * 出力例: /Users/itoryusei/.local/share/aquaproj-aqua/bin/terraform (aqua の管理下のパス)
 > * aqua が無効な場合（Homebrew などが動いている）:
 >   * 出力例: /opt/homebrew/bin/terraform
+> 
 > 2. `.zshrc` や `.bashrc` でパスを通す
 > ``` shell
 > export PATH="${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH"
 > ```
+>
 > 3. 完成
 > * `aqua.yaml` の中に記述されている、packages のバージョンが利用可能に
 > ``` shell
 > terraform --version
 > ```
-> #### ② コマンドで実行する場合
+>
+> ② コマンドで実行する場合
 > 1. `aqua/aqua.yaml` or `aqua.yaml` が含まれているディレクトリでコマンドを実行する
 > ``` shell
 > aqua exec -- terraform --version
