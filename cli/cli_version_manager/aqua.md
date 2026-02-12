@@ -35,7 +35,8 @@ CLIバージョンを固定したいディレクトリで実行
 aqua init
 ```
 
-> [!Note] コマンドを実行するディレクトリ選択方法
+> [!Note]
+> ### コマンドを実行するディレクトリ選択方法 
 > 現在の __ディレクトリ__ から __ルート ディレクトリ__ にかけて設定ファイルを探す。<br/>→ 実行しているディレクトリが優先され、`aqua.yaml` や `aqua/aqua.yaml` がなければ、一つずつ上のディレクトリを探索していく。<br/>
 > 基本は __リポジトリルート__ で実行でいい。<br/>
 > [Configuration file path](https://aquaproj.github.io/docs/tutorial/config-path)
@@ -52,8 +53,9 @@ aqua g -i <PACKAGE_NAME>@<VERSION>
 ```
 
 
-> [!Tip] ローカルで aqua を使って、version 管理したい時（MacOS）
-> ### ① 管理したいコマンドのパスを通す場合
+> [!Tip] 
+> ### ローカルで aqua を使って、version 管理したい時（MacOS）
+> #### ① 管理したいコマンドのパスを通す場合
 > 1. 固定するものを探す
 > ``` shell
 > which terraform
@@ -71,7 +73,7 @@ aqua g -i <PACKAGE_NAME>@<VERSION>
 > ``` shell
 > terraform --version
 > ```
-> ### ② コマンドで実行する場合
+> #### ② コマンドで実行する場合
 > 1. `aqua/aqua.yaml` or `aqua.yaml` が含まれているディレクトリでコマンドを実行する
 > ``` shell
 > aqua exec -- terraform --version
