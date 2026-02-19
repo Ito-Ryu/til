@@ -1,5 +1,5 @@
 # tfaction
-suzuki-shunsuke氏が開発した、GitHub Actions上で高機能なTerraformのCI/CD（計画・適用・ドリフト検出）を容易に実現するフレームワーク。
+suzuki-shunsuke氏が開発した、GitHub Actions上で高機能なTerraformのCI/CD（計画・適用・ドリフト検出）を容易に実現するアクション。
 
 [tfaction](https://github.com/suzuki-shunsuke/tfaction)
 
@@ -33,6 +33,10 @@ If you use Google Cloud, setup GCP Workload Identity Federation </br>
 
 ---
 
-#  tfactoin-root.yaml
-## 
+## tfactoin-root.yaml
+## tfaction.yaml
+## aqua.yaml
 
+---
+
+## list-target

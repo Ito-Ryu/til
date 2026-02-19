@@ -1,0 +1,85 @@
+name: terraform-plan(github-apps-token)
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches:
+      - main
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # For checkout
+      pull-requests: write # Fallback for GitHub App token failure
+    outputs:
+      targets: ${{ steps.list-targets.outputs.targets }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Create Github App
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Setup aqua
+        uses: aquaproj/aqua-installer@11dd79b4e498d471a9385aa9fb7f62bb5f52a73c # v4.0.4
+        with:
+          aqua_version: v2.56.5
+
+      - name: List Targets
+        uses: suzuki-shunsuke/tfaction/list-targets@4562d910bbacecf384c8aeda25332284fcf05f38 # v1.20.1
+        id: list-targets
+        with:
+          github_token: ${{ steps.app-token.outputs.token }}
+
+  plan:
+    needs: setup
+    if: join(fromJSON(needs.setup.outputs.targets), '') != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJSON(needs.setup.outputs.targets) }}
+    name: "plan (${{ matrix.target.target }})"
+    runs-on:  ${{ matrix.target.runs_on }}
+    env:
+      TFACTION_CONFIG: tfaction-root.yaml
+      TFACTION_JOB_TYPE: terraform
+      TFACTION_TARGET: ${{ matrix.target.target }}
+    permissions:
+      id-token: write # For GCP OIDC
+      contents: read # For checkout
+      pull-requests: write # Fallback for GitHub App token failure
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Create Github App
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Setup aqua
+        uses: aquaproj/aqua-installer@11dd79b4e498d471a9385aa9fb7f62bb5f52a73c # v4.0.4
+        with:
+          aqua_version: v2.56.5
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+      - name: Run tfaction setup for ${{ matrix.target.target }}
+        uses: suzuki-shunsuke/tfaction/setup@4562d910bbacecf384c8aeda25332284fcf05f38 # v1.20.1
+        with:
+          github_token: ${{ steps.app-token.outputs.token }}
+
+      - name: Run tfaction plan for ${{ matrix.target.target }}
+        uses: suzuki-shunsuke/tfaction/terraform-plan@4562d910bbacecf384c8aeda25332284fcf05f38 # v1.20.1
+        with:
+          github_token: ${{ steps.app-token.outputs.token }}
