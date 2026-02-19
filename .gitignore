@@ -1,5 +1,7 @@
 /project_management/adr/*
 !/project_management/adr/template.md
+!/project_management/adr/README.md
 
 /project_management/design_doc/*
 !/project_management/design_doc/template.md
+!/project_management/design_doc/README.md
